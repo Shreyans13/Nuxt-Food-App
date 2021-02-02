@@ -15,14 +15,16 @@
 					:key="menuItem.id"
 					:style="`background: url(${menuItem.img}) no-repeat center center`"
 				>
-                <div class="iteminfo">
-                    <div>
-                        <h4>{{ menuItem.item }}</h4>
-                        <p>{{ priceFormatting(menuItem.price) }}</p>
-                    </div>
-                    <button class="ghost">View Item ></button>
-                </div>
-                </div>
+					<div class="iteminfo">
+						<div>
+							<h4>{{ menuItem.item }}</h4>
+							<p>{{ priceFormatting(menuItem.price) }}</p>
+						</div>
+						<nuxt-link :to="`/items/${menuItem.id}`">
+							<button class="ghost">View Item ></button>
+						</nuxt-link>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -36,10 +38,10 @@ export default {
 		},
 	},
 	methods: {
-        priceFormatting(item) {
-            return "₹ " + item.toFixed(2);
-        }
-    }
+		priceFormatting(item) {
+			return "₹ " + item.toFixed(2);
+		},
+	},
 };
 </script>
 
