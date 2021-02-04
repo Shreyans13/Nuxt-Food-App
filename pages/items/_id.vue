@@ -3,7 +3,7 @@
 		<b-card-group deck>
 			<b-card
 				title="Description"
-				:img-src="currentItem.img"
+				:img-src="`/${currentItem.img}`"
 				img-top
 				style="border: none"
 			>
