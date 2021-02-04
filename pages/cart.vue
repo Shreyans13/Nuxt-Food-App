@@ -18,7 +18,7 @@
 							{{item.item}}
 							<span v-if="item.options">- {{item.option}}</span>
 						</td>
-						<td><span class="comma" v-for="addOns in item.addon" :key="addOns">none</span></td>
+						<td><span class="comma" v-for="addOns in item.addons" :key="addOns">{{addOns}}</span></td>
 						<td>{{item.count}}</td>
 						<td>{{item.combinedPrice}}</td>
 					</tr>

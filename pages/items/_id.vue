@@ -107,8 +107,10 @@ export default {
 				combinedPrice: this.combinedPrice,
 			};
 			this.cartSubmitted = true;
-			this.$store.commit("addToCart", cartOutput)
-            setTimeout(()=> {this.cartSubmitted = false}, 3000)
+			this.$store.commit("addToCart", cartOutput);
+			setTimeout(() => {
+				this.cartSubmitted = false;
+			}, 3000);
 		},
 	},
 };
