@@ -1,72 +1,73 @@
 <template>
-	<main class="container">
-		<section
-			class="image"
-			:style="`background: url(/${currentItem.img}) no-repeat center center`"
-		></section>
+	<div class="container my-5">
+		<b-card-group deck>
+			<b-card
+				title="Description"
+				:img-src="currentItem.img"
+				img-top
+				style="border: none"
+			>
+				<b-card-text>{{ currentItem.description }}</b-card-text>
+			</b-card>
 
-		<section class="details">
-			<h1>{{ currentItem.item }}</h1>
+			<b-card style="border: none">
+				<b-card-title class="display-4">{{
+					currentItem.item
+				}}</b-card-title>
+				<b-card-sub-title
+					><span class="h2"
+						>Price: ₹ {{ currentItem.price.toFixed(2) }}</span
+					></b-card-sub-title
+				>
+				<b-card-text class="mt-2">
+					<b-form inline @submit.prevent="">
+						<b-form-input
+							type="number"
+							min="1"
+							v-model="count"
+							style="width: 4rem"
+						>
+						</b-form-input>
+						<b-button
+							class="ml-3"
+							style="width: 75%"
+							variant="success"
+							@click="addToCart"
+						>
+							Add to Cart - ₹ {{ combinedPrice }}
+						</b-button>
+					</b-form>
+					<b-form-group label="Options" class="my-3">
+						<b-form-radio
+							v-for="option in currentItem.options"
+							:key="option"
+							:id="option"
+							:value="option"
+							v-model="itemOptions"
+							>{{ option }}
+						</b-form-radio>
+					</b-form-group>
 
-			<h3>Price: ₹ {{ currentItem.price.toFixed(2) }}</h3>
-
-			<div class="quantity">
-				<input type="number" min="1" v-model="count" />
-				<button class="primary" @click="addToCart">
-					Add to Cart - ₹ {{ combinedPrice }}
-				</button>
-			</div>
-
-			<fieldset v-if="currentItem.options">
-				<legend>
-					<h3>Options</h3>
-				</legend>
-				<div v-for="option in currentItem.options" :key="option">
-					<input
-						type="radio"
-						name="option"
-						:id="option"
-						:value="option"
-						v-model="itemOptions"
-					/>
-					<label :for="option">{{ option }}</label>
-				</div>
-			</fieldset>
-
-			<fieldset v-if="currentItem.addOns">
-				<legend>
-					<h3>Add Ons</h3>
-				</legend>
-				<div v-for="addon in currentItem.addOns" :key="addon">
-					<input
-						type="checkbox"
-						name="addon"
-						:id="addon"
-						:value="addon"
-						v-model="itemAddons"
-					/>
-					<label :for="addon">{{ addon }}</label>
-				</div>
-			</fieldset>
-			<app-tost v-if="cartSubmitted">
-				Order submitted<br />
-				Check out more
-				<nuxt-link to="/Resturants">Resturants</nuxt-link>
-			</app-tost>
-		</section>
-
-		<section class="options">
-			<h3>Description</h3>
-			<p>{{ currentItem.description }}</p>
-		</section>
-	</main>
+					<b-form-group label="Addons">
+						<b-form-checkbox
+							v-for="addon in currentItem.addOns"
+							:key="addon"
+							:id="addon"
+							:value="addon"
+							v-model="itemAddons"
+						>
+							{{ addon }}
+						</b-form-checkbox>
+					</b-form-group>
+				</b-card-text>
+			</b-card>
+		</b-card-group>
+	</div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import AppTost from "../../components/AppTost.vue";
 export default {
-	components: { AppTost },
 	data() {
 		return {
 			id: this.$route.params.id,
@@ -74,7 +75,7 @@ export default {
 			itemOptions: "",
 			itemAddons: [],
 			itemSizeAndCost: [],
-
+			toastCount: 0,
 			cartSubmitted: false,
 		};
 	},
@@ -108,34 +109,20 @@ export default {
 			};
 			this.cartSubmitted = true;
 			this.$store.commit("addToCart", cartOutput);
-			setTimeout(() => {
-				this.cartSubmitted = false;
-			}, 3000);
+			this.makeToast();
+		},
+		makeToast() {
+			this.$bvToast.toast("Check out more", {
+				to: "/resturants",
+				title: "Order submitted",
+				autoHideDelay: 5000,
+				appendToast: true,
+				variant: "success",
+				solid: true,
+			});
 		},
 	},
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
-	width: 1000px;
-	margin: 100px auto;
-	display: grid;
-	grid-template-columns: 400px 1fr;
-	grid-template-rows: 400px 1fr;
-	grid-column-gap: 60px;
-	grid-row-gap: 60px;
-	line-height: 2;
-}
-.image {
-	grid-area: 1 / 1 / 2 / 2;
-	background-size: cover;
-}
-.details {
-	grid-area: 1 / 2 / 2 / 3;
-	position: relative;
-}
-.options {
-	grid-area: 2 / 1 / 3 / 2;
-}
-</style>
+<style lang="scss" scoped></style>

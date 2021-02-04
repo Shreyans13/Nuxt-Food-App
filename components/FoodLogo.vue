@@ -6,10 +6,10 @@
 		viewBox="0 0 81.5 89.3"
 		width="40"
 		height="40"
-        aria-labelledby="logo"
-        role="presentation"
+		aria-labelledby="logo"
+		role="presentation"
 	>
-    <title id="logo">Cart Icon</title>
+		<title id="logo">Cart Icon</title>
 		<g id="utensils">
 			<path
 				d="M67.5,79.2V73.4h0V32.6a2,2,0,0,0-2.1-2,6.6,6.6,0,0,0-4.9,2.2c-7.1,7.1-6.9,31.5-6.8,34.3v2h9.7v8.7h0v7.4h0v8.1a2,2,0,0,0,2,2,2,2,0,0,0,2.1-2V79.2Z"

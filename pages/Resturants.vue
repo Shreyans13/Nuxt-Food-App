@@ -1,12 +1,10 @@
 <template>
 	<div>
-		<main class="container restaurant">
-			<div class="restaurantheading">
+			<div class="container mt-3">
 				<h1>Resturants</h1>
 				<app-select @change="selectedResturant = $event" />
 			</div>
 			<app-resturant-info :datasource="filteredResturants" />
-		</main>
 	</div>
 </template>
 

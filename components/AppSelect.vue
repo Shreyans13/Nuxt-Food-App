@@ -8,7 +8,11 @@
 			:name="select"
 		>
 			<option value>Plese select a {{ select }}</option>
-			<option v-for="option in selectOptions" :key="option" :value="option">
+			<option
+				v-for="option in selectOptions"
+				:key="option"
+				:value="option"
+			>
 				{{ option }}
 			</option>
 		</select>

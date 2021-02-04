@@ -1,14 +1,30 @@
 <template>
-	<section class="restaurantinfo">
-		<div v-for="store in datasource" :key="store.id">
+	<div class="container">
+		<div v-for="store in datasource" :key="store.id" class="my-3">
 			<h2>{{ store.name }}</h2>
 			<p>Delivery Time {{ store.deliveryTime }}</p>
 			<p>Rating {{ store.rating }}</p>
 			<p v-if="store.freeDelivery" class="label">
-				<span>Free Delivery</span>
+				<b-button variant="danger" pill>Free Delivery</b-button>
 			</p>
+			<b-card-group deck class="my-3">
+				<b-card
+					v-for="menuItem in store.menu"
+					:key="menuItem.id"
+					:title="menuItem.item"
+					:img-src="menuItem.img"
+					img-height="250px"
+				>
+					<b-card-text>
+						{{ priceFormatting(menuItem.price) }}
+					</b-card-text>
+					<nuxt-link :to="`/items/${menuItem.id}`">
+						<b-button variant="success">View Item ></b-button>
+					</nuxt-link>
+				</b-card>
+			</b-card-group>
 
-			<div class="row">
+			<!-- <div class="row">
 				<div
 					class="items"
 					v-for="menuItem in store.menu"
@@ -25,9 +41,9 @@
 						</nuxt-link>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
-	</section>
+	</div>
 </template>
 
 <script>
@@ -45,4 +61,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card {
+	box-shadow: 2px 6px 6px 0 rgb(215, 215, 215);
+}
+</style>

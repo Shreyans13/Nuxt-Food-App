@@ -1,19 +1,15 @@
 <template>
 	<div>
-		<div class="content">
-			<app-menu></app-menu>
-			<Nuxt />
-		</div>
-		<footer>Copyright Information goes here
-		</footer>
+		<app-menu></app-menu>
+		<Nuxt />
 	</div>
 </template>
 <script>
-import AppMenu from '@/components/AppMenu.vue';
+import AppMenu from "@/components/AppMenu.vue";
 
 export default {
 	components: {
-		AppMenu
+		AppMenu,
 	},
 };
 </script>
@@ -21,22 +17,10 @@ export default {
 html {
 	font-family: "Mulish", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 		"Helvetica Neue", Arial, sans-serif;
-	font-weight: 300;
-	font-size: 16px;
-	word-spacing: 1px;
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-	box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
+	padding: 0;
 	margin: 0;
 }
+
 h1,
 h2,
 h3,
