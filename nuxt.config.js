@@ -40,7 +40,7 @@ export default {
 	//   {href: '~/assets/temp.js'}
 	// ],
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [`~/plugins/getFood.server.js`, "~/plugins/bootstrap.js"],
+	plugins: [`~/plugins/getFood.server.js`, "~/plugins/bootstrap.js", "~/plugins/validate.js"],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,

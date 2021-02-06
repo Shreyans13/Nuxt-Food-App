@@ -43,7 +43,7 @@
 							:key="option"
 							:id="option"
 							:value="option"
-							v-model="itemOptions"
+							v-model="$v.itemOptions.$model"
 							>{{ option }}
 						</b-form-radio>
 					</b-form-group>
@@ -54,7 +54,7 @@
 							:key="addon"
 							:id="addon"
 							:value="addon"
-							v-model="itemAddons"
+							v-model="$v.itemAddons.$model"
 						>
 							{{ addon }}
 						</b-form-checkbox>
@@ -67,6 +67,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { required } from "vuelidate/lib/validators";
 export default {
 	data() {
 		return {
@@ -78,6 +79,14 @@ export default {
 			toastCount: 0,
 			cartSubmitted: false,
 		};
+	},
+	validations: {
+		itemOptions: {
+			required,
+		},
+		itemAddons: {
+			required,
+		},
 	},
 	computed: {
 		...mapState(["foodData"]),
@@ -107,17 +116,34 @@ export default {
 				addons: this.itemAddons,
 				combinedPrice: this.combinedPrice,
 			};
-			this.cartSubmitted = true;
-			this.$store.commit("addToCart", cartOutput);
-			this.makeToast();
+
+			let addOnError = this.$v.itemAddons.$invalid;
+			let optionsError = this.currentItem.options
+				? this.$v.itemOptions.$invalid
+				: false;
+			let toastObj = {};
+			if (addOnError || optionsError) {
+				this.errors = true;
+				toastObj["title"] = "Order Failed";
+				toastObj["variant"] = "danger";
+				toastObj["message"] =
+					"Please add options and addons before continuing";
+			} else {
+				toastObj["title"] = "Order Submitted";
+				toastObj["variant"] = "success";
+				toastObj["message"] = "Check out more !!!";
+				this.cartSubmitted = true;
+				this.$store.commit("addToCart", cartOutput);
+			}
+			this.makeToast(toastObj);
 		},
-		makeToast() {
-			this.$bvToast.toast("Check out more", {
+		makeToast(toastObj) {
+			this.$bvToast.toast(toastObj["message"], {
 				to: "/resturants",
-				title: "Order submitted",
+				title: toastObj["title"],
 				autoHideDelay: 5000,
 				appendToast: true,
-				variant: "success",
+				variant: toastObj["variant"],
 				solid: true,
 			});
 		},
